@@ -79,7 +79,7 @@ make clean
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/jobs/` | Paginated list of jobs with current status |
+| `GET` | `/api/jobs/` | Paginated list of jobs with current status. Optional query params: `?status=PENDING\|RUNNING\|COMPLETED\|FAILED` to filter, `?ordering=name\|-name\|created_at\|-created_at` to sort. |
 | `POST` | `/api/jobs/` | Create a new job |
 | `PATCH` | `/api/jobs/<id>/` | Update a job's status |
 | `DELETE` | `/api/jobs/<id>/` | Delete a job |

@@ -103,7 +103,7 @@ The Vite dev server proxies `/api/*` requests to `localhost:8000`, so no CORS co
 2. **Frontend unit tests** — Vitest + React Testing Library component tests covering `ErrorBanner`, `StatusBadge`, `CreateJobForm`, and `JobRow`, run as a dedicated Docker Compose service via `make test-frontend`.
 3. **Backend unit tests** — Django test suite covering all four API endpoints (GET, POST, PATCH, DELETE) including edge cases like blank names, invalid status transitions, and cascade deletes, run via `make test-backend`.
 
-*When the options button (3 dots) is clicked for a job, the user is presented with the choice to delete the job or view the job's status history. The view status history feature has not been implemented but the exterior was included to show my vision for the UI/UX*
+*When the options button (3 dots) is clicked for a job, the user is presented with the choice to delete the job or view the job's status history. The view status history feature has not been implemented but the exterior was included to show my vision for the UI/UX.*
 
 ## Performance Considerations
 

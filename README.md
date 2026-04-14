@@ -132,13 +132,13 @@ A deliberate separation between planning and implementation was enforced from th
 
 Claude was switched to **plan mode** before receiving this prompt. Without plan mode, Claude can somestimes jump into implementation, even if you ask it not to. This can produce code that may be well-written, but doesn't address all specifications or makes narrow-sighted assumptions that are expensive and tedious to undo. By forcing the full design to be reviewed and approved before a single file was created, several non-trivial decisions were locked in upfront: using a Django ORM `Subquery` annotation rather than raw `DISTINCT ON` for the latest-status query, choosing `PageNumberPagination` over cursor-based pagination, using `@tanstack/react-query` for server state management, and routing all frontend requests through an nginx reverse proxy to eliminate CORS issues entirely. Any of these could have been revisited during implementation, but having them decided in advance meant implementation was largely mechanical execution of a reviewed spec rather than design-on-the-fly.
 
-The specificity of the seven numbered items in the planning prompt also mattered. Vague planning prompts produce vague plans. By naming concrete concerns, such as the PostgreSQL query strategy for millions of rows, the resulting plan was detailed enough to execute without requiring constant modification during implementation. I took a similar approach to planning for the development of the job filtering/sorting feature.
+The specificity of the seven numbered items in the planning prompt also mattered. Vague planning prompts produce vague plans. By naming concrete concerns, such as the PostgreSQL query strategy for millions of rows, the resulting plan was detailed enough to execute without constant modification during implementation. I took a similar approach to planning for the development of the job filtering/sorting stretch goal.
 
 ---
 
 ## Verifying Sub Tasks Before Proceeding
 
-After I approved Claude's plan, Claude Code generated broke down implementation into a to-do list of sub-tasks. The to-do list essentially consisted of implementing the backend, then the frontend, and lastly integration testing. However, any form of intermediate verification of the completion of sub-tasks was missing from the generated to-do list.
+After I approved Claude's plan, Claude Code generated a to-do list of sub-tasks. The to-do list essentially consisted of implementing the backend, then the frontend, and lastly integration testing. However, any form of intermediate verification of the completion of sub-tasks was missing from the generated to-do list.
 
 >Todos 
 >- Build Django backend (models, serializers, views, URLs, settings, migrations)
@@ -153,9 +153,9 @@ Neglecting the verification of major milestones can lead to errors propogating t
 
 > *"Let's run some checks to verify the Django backend and infrastructure have been set up correctly before moving on to the frontend."*
 
-Interrupting implementation to explicitly verify a layer before building on top of it can catch real problems at the lowest possible cost. The backend check confirmed all four API endpoints behaved correctly, including the exact shape of validation error responses, and that migrations ran cleanly inside Docker. The frontend check caught some UI issues with the "Update Status / Actions" column. 
+Interrupting implementation to explicitly verify a layer before building on top of it can catch real problems at the lowest possible cost. The backend check confirmed all four API endpoints behaved correctly, including the exact shape of validation error responses, and that migrations ran cleanly inside Docker. The frontend check caught some UI issues with an "Update Status / Actions" column. 
 
-Bugs discovered one layer downstream are typically more expensive to fix than bugs caught at the layer where they originate. Telling Claude to verify rather than just letting it proceed is an important habit in AI driven development, and follows good software engineering practice. In hindsight it would have been better to have Claude update its to-do list to include some verification/checks, but I only caught the issue after the agent started coding.
+Bugs discovered one layer downstream are typically more expensive to fix than bugs caught at the layer where they originate. Telling Claude to verify rather than just letting it proceed is an important practice in AI driven development. In hindsight, it would have been better to have Claude update its to-do list to include some verification/checks, but I only caught the issue after the agent started coding.
 
 ---
 
@@ -165,7 +165,7 @@ As mentioned previously, Claude's implementation of the UI for status changes an
 
 > *"I don't see this as an improvement. How about we delete the actions column altogether. Then in the existing STATUS column, we add an edit symbol that the user can click to change the status. How about we also add a 3-dot button on each row that pops up a menu where users can delete or maybe in the future show job status history."*
 
-This prompt rejected the original approach and revisions, and described exactly what the replacement should look like. That specificity enabled the improved UI to be implemented in a single pass. Initial vague rejections ("that doesn't look right, try something else") produced inadequate replacements. With AI driven development, The more precisely a course correction describes the target state, the less iteration is required to reach it. The result also better aligned with modern UI design: inline edit via icon and bulk actions via kebab menu.
+This prompt rejected the original approach and revisions, and described exactly what the replacement should look like. That specificity enabled the improved UI to be implemented in a single pass. Initial vague rejections ("that doesn't look right, try something else") produced inadequate replacements. With AI driven development, precise course corrections reduce iteration time. The result also better aligned with modern UI design: inline edit via icon and bulk actions via kebab menu.
 
 ## Treating the Plan as a Living Document
 

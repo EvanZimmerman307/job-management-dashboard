@@ -173,13 +173,13 @@ Midway through frontend implementation, Claude made an architectural change. It 
 
 > *"Since you updated the component/hook architecture by lifting the hook to Dashboard and passing data down as props, review the plan to see how this update affects the plan."*
 
-This forced an explicit reconciliation between the code and the plan. The result was a documented record of why `JobList` became a pure presentational component and what trade-offs that created. The idea here was that the plan is not just a starting document, it is an ongoing contract. Any time the implementation deviates from the plan, the AI should update the plan to maintain a single source of truth.
+This forced an explicit reconciliation between the code and the plan. The result was a documented record of why `JobList` became a pure presentational component. The idea here is that the plan is not just a starting document, it is an ongoing contract. Any time the implementation deviates from the plan, the AI should update the plan to maintain a single source of truth.
 
 ---
 
 ## Analyzing Trade-offs
 
-When a coding agent makes architectural changes like the one described above, even if it seems minor, it is important to think through any broader impacts of the change with the agent. The following prompt was used to evaluate the aforementioned change:
+When a coding agent makes changes like the one described above, even if it seems minor, it is important to think through any broader impacts of the change with the agent. The following prompt was used to evaluate the aforementioned change:
 
 > *"What are the pros and cons of this change, and how will it be impacted by potentially millions of jobs in the database?"*
 

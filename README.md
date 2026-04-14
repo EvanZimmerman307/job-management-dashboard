@@ -101,7 +101,7 @@ The Vite dev server proxies `/api/*` requests to `localhost:8000`, so no CORS co
 ## Stretch Goals
 1. **Filtering/Sorting** — Jobs can be filtered by status and sorted by name or creation date via query params on the backend (`?status=`, `?ordering=`), with corresponding dropdowns in the frontend toolbar.
 2. **Frontend unit tests** — Vitest + React Testing Library component tests covering `ErrorBanner`, `StatusBadge`, `CreateJobForm`, and `JobRow`, run as a dedicated Docker Compose service via `make test-frontend`.
-3. **Backend unit tests** — Django test suite covering all four API endpoints (create, list, patch, delete) including edge cases like blank names, invalid status transitions, and cascade deletes, run via `make test-backend`.
+3. **Backend unit tests** — Django test suite covering all four API endpoints (GET, POST, PATCH, DELETE) including edge cases like blank names, invalid status transitions, and cascade deletes, run via `make test-backend`.
 
 ## Performance Considerations
 
